@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream-to-Reality </title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #B77466 0%, #957C62 50%, #758A93 100%);
+            color: #070707;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(226, 181, 154, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 225, 175, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .floating-shapes {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .shape1 {
+            width: 300px;
+            height: 300px;
+            background: #E2B59A;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape2 {
+            width: 200px;
+            height: 200px;
+            background: #FFE1AF;
+            top: 60%;
+            right: 15%;
+            animation-delay: 3s;
+        }
+
+        .shape3 {
+            width: 150px;
+            height: 150px;
+            background: #E2B59A;
+            bottom: 10%;
+            left: 50%;
+            animation-delay: 6s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(30px, -30px) scale(1.1);
+            }
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 120px 20px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(226, 181, 154, 0.25) 0%, transparent 70%);
+            filter: blur(80px);
+            animation: pulseGlow 5s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.4;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.15);
+                opacity: 0.7;
+            }
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 5em;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffe6d9 0%, #fcdeaa 50%, #f5cea5 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 25px;
+            position: relative;
+            letter-spacing: 3px;
+            text-shadow: 0 0 40px rgba(226, 181, 154, 0.3);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% {
+                filter: brightness(1);
+            }
+            50% {
+                filter: brightness(1.2);
+            }
+        }
+
+        .tagline {
+            font-size: 1.8em;
+            color: #fceacc;
+            margin-bottom: 60px;
+            position: relative;
+            font-weight: 300;
+            letter-spacing: 2px;
+            line-height: 1.6;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #E2B59A 0%, #c99a7a 100%);
+            color: #3d2418;
+            border: none;
+            padding: 22px 55px;
+            font-size: 1.3em;
+            font-weight: 600;
+            border-radius: 60px;
+            cursor: pointer;
+            box-shadow:
+                0 15px 50px rgba(226, 181, 154, 0.4),
+                inset 0 -3px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.6s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow:
+                0 20px 60px rgba(226, 181, 154, 0.6),
+                inset 0 -3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .input-section {
+            display: none;
+            padding: 80px 20px;
+        }
+
+        .input-section.active {
+            display: block;
+            animation: fadeInUp 0.7s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .input-card {
+            background: rgba(255, 225, 175, 0.08);
+            backdrop-filter: blur(30px);
+            border-radius: 35px;
+            padding: 50px;
+            border: 2px solid rgba(226, 181, 154, 0.2);
+            box-shadow:
+                0 25px 80px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .input-label {
+            font-size: 1.6em;
+            margin-bottom: 30px;
+            color: #E2B59A;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .dream-input {
+            width: 100%;
+            background: rgba(61, 36, 24, 0.6);
+            border: 2px solid rgba(226, 181, 154, 0.3);
+            border-radius: 20px;
+            padding: 25px;
+            color: #FFE1AF;
+            font-size: 1.1em;
+            font-family: 'Poppins', sans-serif;
+            resize: vertical;
+            min-height: 150px;
+            transition: all 0.4s ease;
+            line-height: 1.8;
+            margin-bottom: 35px;
+        }
+
+        .dream-input:focus {
+            outline: none;
+            border-color: #E2B59A;
+            box-shadow:
+                0 0 30px rgba(226, 181, 154, 0.3),
+                inset 0 2px 10px rgba(0, 0, 0, 0.2);
+            background: rgba(136, 94, 75, 0.8);
+        }
+
+        .dream-input::placeholder {
+            color: rgba(255, 225, 175, 0.4);
+            font-style: italic;
+        }
+
+        .generate-button {
+            width: 100%;
+            background: linear-gradient(90deg, #758A93 , #c99a7a );
+            border: none;
+            padding: 22px;
+            font-size: 1.4em;
+            font-weight: 600;
+            border-radius: 20px;
+            cursor: pointer;
+            color: #3d2418;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 12px 40px rgba(226, 181, 154, 0.5);
+            transition: all 0.4s ease;
+            letter-spacing: 1px;
+        }
+
+        .generate-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 18px 50px rgba(226, 181, 154, 0.7);
+        }
+
+        .loading-section {
+            display: none;
+            padding: 120px 20px;
+            text-align: center;
+        }
+
+        .loading-section.active {
+            display: block;
+            animation: fadeInUp 0.7s ease;
+        }
+
+        .loading-spinner {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 40px;
+            position: relative;
+        }
+
+        .spinner-ring {
+            width: 100%;
+            height: 100%;
+            border: 5px solid rgba(226, 181, 154, 0.2);
+            border-top-color: #E2B59A;
+            border-right-color: #FFE1AF;
+            border-radius: 50%;
+            animation: spin 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+            box-shadow: 0 0 30px rgba(226, 181, 154, 0.4);
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-text {
+            font-size: 2em;
+            color: #E2B59A;
+            margin-bottom: 20px;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .loading-subtext {
+            color: rgba(255, 225, 175, 0.7);
+            font-size: 1.2em;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .result-section {
+            display: none;
+            padding: 80px 20px;
+        }
+
+        .result-section.active {
+            display: block;
+            animation: fadeInUp 0.7s ease;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .result-card {
+            background: rgba(255, 225, 175, 0.08);
+            backdrop-filter: blur(30px);
+            border-radius: 35px;
+            padding: 40px;
+            border: 2px solid rgba(226, 181, 154, 0.2);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .result-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 30px 80px rgba(226, 181, 154, 0.3);
+            border-color: rgba(226, 181, 154, 0.4);
+        }
+
+        .dream-image {
+            width: 100%;
+            height: 450px;
+            background: linear-gradient(135deg, rgba(226, 181, 154, 0.2) 0%, rgba(255, 225, 175, 0.2) 100%);
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5em;
+            margin-bottom: 25px;
+            box-shadow: inset 0 0 60px rgba(61, 36, 24, 0.3);
+            border: 2px solid rgba(226, 181, 154, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #E2B59A;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .reality-text {
+            line-height: 2;
+            color: rgba(255, 225, 175, 0.9);
+            font-size: 1.1em;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+        }
+
+        .reality-score {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(226, 181, 154, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(226, 181, 154, 0.2);
+        }
+
+        .score-label {
+            font-size: 1.1em;
+            color: rgba(255, 225, 175, 0.7);
+        }
+
+        .score-bar {
+            flex: 1;
+            height: 12px;
+            background: rgba(61, 36, 24, 0.5);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .score-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #E2B59A 0%, #FFE1AF 100%);
+            border-radius: 10px;
+            animation: fillBar 2s ease-out;
+            box-shadow: 0 0 15px rgba(226, 181, 154, 0.5);
+        }
+
+        @keyframes fillBar {
+            from {
+                width: 0;
+            }
+        }
+
+        .score-value {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #E2B59A;
+        }
+
+        .investor-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .investor-card {
+            background: rgba(255, 225, 175, 0.08);
+            backdrop-filter: blur(30px);
+            border-radius: 30px;
+            padding: 35px;
+            border: 2px solid rgba(255, 225, 175, 0.2);
+            text-align: center;
+            transition: all 0.5s ease;
+        }
+
+        .investor-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            border-color: rgba(226, 181, 154, 0.5);
+            box-shadow: 0 20px 50px rgba(226, 181, 154, 0.3);
+        }
+
+        .investor-icon {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+        }
+
+        .investor-label {
+            font-size: 1em;
+            color: rgba(255, 225, 175, 0.6);
+            margin-bottom: 12px;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .investor-value {
+            font-size: 1.8em;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(135deg, #E2B59A 0%, #FFE1AF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .roadmap-section {
+            background: rgba(255, 225, 175, 0.08);
+            backdrop-filter: blur(30px);
+            border-radius: 35px;
+            padding: 50px;
+            border: 2px solid rgba(226, 181, 154, 0.2);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+            margin-bottom: 50px;
+        }
+
+        .roadmap-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #E2B59A;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        .roadmap-subtitle {
+            text-align: center;
+            color: rgba(255, 225, 175, 0.7);
+            font-size: 1.2em;
+            margin-bottom: 50px;
+            font-weight: 300;
+        }
+
+        .roadmap-steps {
+            display: grid;
+            gap: 30px;
+        }
+
+        .roadmap-step {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+            padding: 30px;
+            background: rgba(61, 36, 24, 0.3);
+            border-radius: 25px;
+            border: 2px solid rgba(226, 181, 154, 0.15);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .roadmap-step::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg, #E2B59A 0%, #FFE1AF 100%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .roadmap-step:hover {
+            transform: translateX(10px);
+            border-color: rgba(226, 181, 154, 0.4);
+            box-shadow: 0 15px 40px rgba(226, 181, 154, 0.2);
+        }
+
+        .roadmap-step:hover::before {
+            opacity: 1;
+        }
+
+        .step-number {
+            font-size: 3em;
+            font-weight: 900;
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(135deg, #E2B59A 0%, #FFE1AF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #E2B59A;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        .step-description {
+            color: rgba(255, 225, 175, 0.8);
+            line-height: 1.8;
+            font-size: 1.05em;
+            margin-bottom: 15px;
+        }
+
+        .step-timeline {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(255, 225, 175, 0.2);
+            border-radius: 20px;
+            font-size: 0.9em;
+            color: #FFE1AF;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .action-button {
+            background: rgba(255, 225, 175, 0.08);
+            border: 2px solid rgba(226, 181, 154, 0.3);
+            padding: 18px 40px;
+            border-radius: 60px;
+            cursor: pointer;
+            color: #FFE1AF;
+            font-size: 1.1em;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.4s ease;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 0.5px;
+        }
+
+        .action-button:hover {
+            background: rgba(226, 181, 154, 0.2);
+            border-color: #E2B59A;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(226, 181, 154, 0.4);
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            border-top: 1px solid rgba(226, 181, 154, 0.2);
+            margin-top: 80px;
+        }
+
+        .footer-text {
+            color: rgba(255, 225, 175, 0.6);
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .footer-credits {
+            margin-top: 20px;
+            color: rgba(255, 225, 175, 0.4);
+            font-size: 0.95em;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 768px) {
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .investor-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .logo {
+                font-size: 3em;
+            }
+
+            .tagline {
+                font-size: 1.3em;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .roadmap-step {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .step-number {
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="floating-shapes">
+        <div class="shape shape1"></div>
+        <div class="shape shape2"></div>
+        <div class="shape shape3"></div>
+    </div>
+
+    <div class="container">
+        <section class="hero" id="hero">
+            <div class="logo">Dream-to-Reality</div>
+            <div class="tagline">Transform your dreams into reality with AI-powered insights and actionable roadmaps
+            </div>
+            <button class="cta-button" onclick="showInputSection()">Describe Your Dream</button>
+        </section>
+
+        <section class="input-section" id="inputSection">
+            <div class="input-card">
+                <div class="input-label">✨ Share your dream with us</div>
+                <textarea class="dream-input" id="dreamInput"
+                    placeholder="I want to become a successful entrepreneur and build a tech startup that changes lives..."></textarea>
+                <button class="generate-button" onclick="generateDream()">Analyze Dream with AI</button>
+            </div>
+        </section>
+
+        <section class="loading-section" id="loadingSection">
+            <div class="loading-spinner">
+                <div class="spinner-ring"></div>
+            </div>
+            <div class="loading-text">AI is analyzing your dream...</div>
+            <div class="loading-subtext">Generating personalized insights and roadmap</div>
+        </section>
+
+        <section class="result-section" id="resultSection">
+            <div class="result-grid">
+                <div class="result-card">
+                    <div class="dream-image" id="dreamVisualization">🌟</div>
+                    <div class="card-title">Your Dream Visualized</div>
+                </div>
+                <div class="result-card">
+                    <div class="card-title">AI Reality Check</div>
+                    <div class="reality-text" id="realityText">
+                        Your dream is ambitious and achievable with the right strategy and dedication. The AI analysis
+                        shows strong potential for success.
+                    </div>
+                    <div class="reality-score">
+                        <span class="score-label">Achievability:</span>
+                        <div class="score-bar">
+                            <div class="score-fill" id="scoreFill" style="width: 85%"></div>
+                        </div>
+                        <span class="score-value" id="scoreValue">85%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="investor-cards">
+                <div class="investor-card">
+                    <div class="investor-icon">💡</div>
+                    <div class="investor-label">Dream Clarity</div>
+                    <div class="investor-value" id="clarityValue">92%</div>
+                </div>
+                <div class="investor-card">
+                    <div class="investor-icon">🎯</div>
+                    <div class="investor-label">Success Potential</div>
+                    <div class="investor-value" id="potentialValue">High</div>
+                </div>
+                <div class="investor-card">
+                    <div class="investor-icon">⏱️</div>
+                    <div class="investor-label">Estimated Timeline</div>
+                    <div class="investor-value" id="timelineValue">2-3 Years</div>
+                </div>
+            </div>
+
+            <div class="roadmap-section">
+                <div class="roadmap-title">🗺️ Your Personalized Roadmap</div>
+                <div class="roadmap-subtitle">AI-Generated Action Plan to Achieve Your Dream</div>
+
+                <div class="roadmap-steps" id="roadmapSteps">
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="action-button" onclick="shareDream()">📤 Share Journey</button>
+                <button class="action-button" onclick="downloadRoadmap()">💾 Download Roadmap</button>
+                <button class="action-button" onclick="createNew()">✨ New Dream</button>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-text">Powered by Advanced AI Dream Analysis Technology</div>
+        <div class="footer-credits">© 2025 Dream-to-Reality - Where Dreams Become Reality</div>
+    </footer>
+
+    <script>
+        const dreamTemplates = {
+            entrepreneur: {
+                emoji: '🚀',
+                reality: 'Your entrepreneurial dream is highly achievable! The market landscape shows strong opportunities for innovative startups. With proper planning, dedication, and the right team, you can turn this vision into reality.',
+                score: 85,
+                clarity: 92,
+                potential: 'High',
+                timeline: '2-3 Years',
+                steps: [
+                    {
+                        title: 'Validate Your Idea',
+                        description: 'Research your target market, identify pain points, and validate your solution with potential customers. Create a minimum viable product (MVP) to test your concept.',
+                        timeline: '2-3 Months'
+                    },
+                    {
+                        title: 'Build Your Foundation',
+                        description: 'Develop a solid business plan, register your company, and set up the legal and financial infrastructure. Assemble your core team and define roles.',
+                        timeline: '3-4 Months'
+                    },
+                    {
+                        title: 'Secure Funding',
+                        description: 'Bootstrap initially, then approach angel investors or VCs. Prepare a compelling pitch deck and financial projections. Consider grants and incubator programs.',
+                        timeline: '4-6 Months'
+                    },
+                    {
+                        title: 'Launch & Iterate',
+                        description: 'Release your product to early adopters, gather feedback, and iterate rapidly. Focus on customer acquisition and retention strategies.',
+                        timeline: '6-12 Months'
+                    },
+                    {
+                        title: 'Scale & Grow',
+                        description: 'Expand your team, optimize operations, and scale your marketing efforts. Focus on sustainable growth and market expansion.',
+                        timeline: '1-2 Years'
+                    }
+                ]
+            },
+            creative: {
+                emoji: '🎨',
+                reality: 'Your creative dream is absolutely within reach! The digital age has opened countless opportunities for artists and creators. With consistent practice and strategic promotion, you can build a thriving creative career.',
+                score: 88,
+                clarity: 90,
+                potential: 'Very High',
+                timeline: '1-2 Years',
+                steps: [
+                    {
+                        title: 'Master Your Craft',
+                        description: 'Dedicate time daily to practice and refine your skills. Take online courses, study masters in your field, and experiment with different techniques.',
+                        timeline: '3-6 Months'
+                    },
+                    {
+                        title: 'Build Your Portfolio',
+                        description: 'Create a diverse collection of your best work. Develop a professional website and establish your presence on relevant platforms.',
+                        timeline: '2-4 Months'
+                    },
+                    {
+                        title: 'Grow Your Audience',
+                        description: 'Share your work consistently on social media, engage with your community, and collaborate with other creators. Build an email list.',
+                        timeline: '6-9 Months'
+                    },
+                    {
+                        title: 'Monetize Your Passion',
+                        description: 'Offer commissions, sell prints or digital products, launch a Patreon, or partner with brands. Diversify your income streams.',
+                        timeline: '9-12 Months'
+                    },
+                    {
+                        title: 'Establish Your Brand',
+                        description: 'Define your unique style and voice. Build a recognizable brand identity and expand into workshops, courses, or speaking engagements.',
+                        timeline: '1-2 Years'
+                    }
+                ]
+            },
+            fitness: {
+                emoji: '💪',
+                reality: 'Your fitness dream is absolutely achievable! With a structured plan, proper nutrition, and consistent effort, you can transform your body and health. Science backs every step of this journey.',
+                score: 90,
+                clarity: 95,
+                potential: 'Very High',
+                timeline: '6-12 Months',
+                steps: [
+                    {
+                        title: 'Set Clear Goals & Assess',
+                        description: 'Define specific, measurable fitness goals. Get a health check-up, assess your current fitness level, and take baseline measurements.',
+                        timeline: '1 Week'
+                    },
+                    {
+                        title: 'Create Your Plan',
+                        description: 'Design a workout routine suited to your goals. Plan your nutrition strategy with proper macros. Consider hiring a trainer or joining a program.',
+                        timeline: '2-3 Weeks'
+                    },
+                    {
+                        title: 'Build Consistency',
+                        description: 'Start with manageable workouts and gradually increase intensity. Focus on forming the habit before perfection. Track your progress weekly.',
+                        timeline: '2-3 Months'
+                    },
+                    {
+                        title: 'Progressive Overload',
+                        description: 'Gradually increase weights, reps, or intensity. Refine your nutrition based on results. Address any weaknesses or imbalances.',
+                        timeline: '3-6 Months'
+                    },
+                    {
+                        title: 'Achieve & Maintain',
+                        description: 'Reach your target goals and transition to maintenance mode. Develop a sustainable lifestyle approach for long-term success.',
+                        timeline: '6-12 Months'
+                    }
+                ]
+            },
+            default: {
+                emoji: '⭐',
+                reality: 'Your dream is unique and achievable with the right approach! AI analysis suggests this goal is within your reach with proper planning, dedication, and strategic execution. The path ahead is clear.',
+                score: 82,
+                clarity: 88,
+                potential: 'High',
+                timeline: '1-2 Years',
+                steps: [
+                    {
+                        title: 'Define & Research',
+                        description: 'Clarify your exact goal and break it down into smaller milestones. Research what others have done to achieve similar dreams and learn from their experiences.',
+                        timeline: '1-2 Months'
+                    },
+                    {
+                        title: 'Acquire Skills & Knowledge',
+                        description: 'Identify the key skills and knowledge you need. Take courses, read books, find mentors, and immerse yourself in learning.',
+                        timeline: '3-6 Months'
+                    },
+                    {
+                        title: 'Take Action & Build',
+                        description: 'Start taking concrete steps toward your goal. Build your foundation, create momentum, and do not wait for perfect conditions.',
+                        timeline: '6-9 Months'
+                    },
+                    {
+                        title: 'Iterate & Improve',
+                        description: 'Review your progress regularly. Adjust your strategy based on what works. Stay flexible and open to pivoting when needed.',
+                        timeline: '9-12 Months'
+                    },
+                    {
+                        title: 'Scale & Sustain',
+                        description: 'Once you have momentum, focus on scaling your efforts. Build systems for sustainability and continue growing toward your ultimate vision.',
+                        timeline: '1-2 Years'
+                    }
+                ]
+            }
+        };
+
+        function showInputSection() {
+            document.getElementById('hero').style.display = 'none';
+            document.getElementById('inputSection').classList.add('active');
+        }
+
+        function analyzeDream(dreamText) {
+            const text = dreamText.toLowerCase();
+
+            if (text.includes('startup') || text.includes('business') || text.includes('entrepreneur') || text.includes('company')) {
+                return 'entrepreneur';
+            } else if (text.includes('artist') || text.includes('creative') || text.includes('design') || text.includes('art') || text.includes('music')) {
+                return 'creative';
+            } else if (text.includes('fitness') || text.includes('workout') || text.includes('weight') || text.includes('health') || text.includes('gym')) {
+                return 'fitness';
+            } else {
+                return 'default';
+            }
+        }
+
+        function generateDream() {
+            const input = document.getElementById('dreamInput').value;
+            if (!input.trim()) {
+                alert('Please describe your dream first!');
+                return;
+            }
+
+            document.getElementById('inputSection').classList.remove('active');
+            document.getElementById('loadingSection').classList.add('active');
+
+            setTimeout(() => {
+                const dreamType = analyzeDream(input);
+                const template = dreamTemplates[dreamType];
+
+                document.getElementById('dreamVisualization').textContent = template.emoji;
+                document.getElementById('realityText').textContent = template.reality;
+                document.getElementById('scoreFill').style.width = template.score + '%';
+                document.getElementById('scoreValue').textContent = template.score + '%';
+                document.getElementById('clarityValue').textContent = template.clarity + '%';
+                document.getElementById('potentialValue').textContent = template.potential;
+                document.getElementById('timelineValue').textContent = template.timeline;
+
+                const roadmapContainer = document.getElementById('roadmapSteps');
+                roadmapContainer.innerHTML = '';
+
+                template.steps.forEach((step, index) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'roadmap-step';
+                    stepElement.innerHTML = `
+                        <div class="step-number">${String(index + 1).padStart(2, '0')}</div>
+                        <div class="step-content">
+                            <div class="step-title">${step.title}</div>
+                            <div class="step-description">${step.description}</div>
+                            <div class="step-timeline">⏱️ Timeline: ${step.timeline}</div>
+                        </div>
+                    `;
+                    roadmapContainer.appendChild(stepElement);
+                });
+
+                document.getElementById('loadingSection').classList.remove('active');
+                document.getElementById('resultSection').classList.add('active');
+            }, 3000);
+        }
+
+        function shareDream() {
+            const dreamText = document.getElementById('dreamInput').value;
+            if (navigator.share) {
+                navigator.share({
+                    title: 'My Dream Journey - Dream-to-Reality',
+                    text: 'I am turning my dream into reality! ' + dreamText.substring(0, 100) + '...',
+                    url: window.location.href
+                }).catch(() => {
+                    alert('📤 Share feature: Copy your personalized roadmap link to share with others!');
+                });
+            } else {
+                alert('📤 Share feature: Copy your personalized roadmap link to share with others!');
+            }
+        }
+
+        function downloadRoadmap() {
+            alert('💾 Downloading your personalized roadmap as PDF... In production, this will generate a beautiful PDF with all your insights and action steps!');
+        }
+
+        function createNew() {
+            document.getElementById('resultSection').classList.remove('active');
+            document.getElementById('inputSection').classList.add('active');
+            document.getElementById('dreamInput').value = '';
+        }
+    </script>
+</body>
+
+</html>
