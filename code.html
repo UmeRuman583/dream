@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Assistant</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    <style>
+        :root{--p:#6366f1;--s:#06b6d4;--r:12px;--sh:0 4px 15px rgba(99,102,241,.3);}
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Inter',sans-serif;background:#f8fafc;color:#111827;overflow-x:hidden;transition:.3s;}
+        body.dark{background:#0b0f19;color:#e0e7ff;}
+        .container{max-width:900px;margin:auto;padding:20px;}
+        .logo{font-family:'Playfair Display',serif;font-size:2.5rem;text-align:center;margin:20px 0;
+            background:linear-gradient(to right,var(--p),var(--s));-webkit-background-clip:text;background-clip:text;
+            -webkit-text-fill-color:transparent;}
+        .toggle{position:fixed;top:15px;right:15px;width:50px;height:50px;background:linear-gradient(var(--p),var(--s));
+            border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.3rem;
+            cursor:pointer;box-shadow:var(--sh);transition:.3s;}
+        .toggle:hover{transform:scale(1.1);}
+        .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px;}
+        .field{background:rgba(255,255,255,.1);backdrop-filter:blur(10px);border-radius:var(--r);padding:16px;
+            border:1px solid rgba(99,102,241,.3);box-shadow:var(--sh);transition:.3s;}
+        body.dark .field{background:rgba(11,15,25,.2);border-color:rgba(99,102,241,.5);}
+        .field:hover{transform:translateY(-3px);}
+        .field label{display:block;font-weight:600;color:var(--p);margin-bottom:6px;font-size:0.95rem;}
+        body.dark .field label{color:var(--s);}
+        input,textarea{width:100%;background:transparent;border:none;outline:none;font-size:1rem;color:inherit;}
+        textarea{resize:vertical;min-height:80px;}
+        .btn{background:linear-gradient(to right,var(--p),var(--s));color:#fff;border:none;padding:12px 24px;
+            border-radius:10px;font-weight:600;cursor:pointer;box-shadow:var(--sh);transition:.3s;width:100%;margin-top:20px;}
+        .btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(99,102,241,.5);}
+        .btn-small{width:auto;display:inline-block;padding:8px 16px;font-size:0.9rem;margin-left:10px;}
+        .output{margin-top:40px;display:none;}
+        .output.active{display:block;animation:fade .5s;}
+        @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+        .card{background:rgba(255,255,255,.08);backdrop-filter:blur(10px);border-radius:var(--r);padding:18px;
+            border:1px solid rgba(99,102,241,.3);margin-bottom:16px;position:relative;}
+        .tag{background:var(--p);color:#fff;padding:3px 8px;border-radius:15px;font-size:0.75rem;margin-left:8px;}
+        .copy{position:absolute;top:10px;right:10px;background:none;border:none;color:var(--p);cursor:pointer;font-size:0.9rem;}
+        footer{text-align:center;margin-top:50px;color:#666;font-size:0.85rem;}
+        body.dark footer{color:#06b6d4;}
+        @media(max-width:768px){.grid{grid-template-columns:1fr;}}
+    </style>
+</head>
+<body class="dark">
+    <div class="toggle" onclick="document.body.classList.toggle('dark')">
+        <div class="sun">Sun</div>
+        <div class="moon" style="position:absolute;opacity:0;transform:rotate(-180deg);transition:.3s;">Moon</div>
+    </div>
+
+    <div class="container">
+        <h1 class="logo">Business Assistant</h1>
+
+        <div class="grid">
+            <div class="field"><label>Business Idea</label>
+                <textarea id="idea" placeholder="e.g. Eco-friendly packaging"></textarea>
+            </div>
+            <div class="field"><label>Target Market</label>
+                <input id="market" placeholder="e.g. Restaurants in Delhi">
+            </div>
+            <div class="field"><label>Problem You Solve</label>
+                <textarea id="problem" placeholder="e.g. Plastic waste"></textarea>
+            </div>
+            <div class="field"><label>Your Solution</label>
+                <textarea id="solution" placeholder="e.g. Biodegradable bags"></textarea>
+            </div>
+            <div class="field"><label>Investment Needed (₹)</label>
+                <input id="investment" type="number" placeholder="800000">
+            </div>
+            <div class="field"><label>Time to Launch (months)</label>
+                <input id="timeline" type="number" placeholder="6">
+            </div>
+            <div class="field"><label>Product / Service Name</label>
+                <input id="productName" placeholder="GreenBite">
+            </div>
+            <div class="field"><label>Place / Location</label>
+                <input id="location" placeholder="Delhi, India">
+            </div>
+        </div>
+
+        <div style="display:flex;gap:10px;">
+            <button class="btn" onclick="generate()">Generate Report</button>
+            <button class="btn btn-small" onclick="newIdea()">New Idea</button>
+        </div>
+
+        <!-- Output -->
+        <div class="output" id="output">
+            <div class="card">
+                <h3 style="margin:0 0 12px;color:var(--p);">Best Suppliers (AI-suggested)</h3>
+                <div id="suppliers"></div>
+            </div>
+            <div class="card">
+                <h3 style="margin:0 0 12px;color:var(--p);">Potential Investors (AI-suggested)</h3>
+                <div id="investors"></div>
+            </div>
+            <div class="card">
+                <h3 style="margin:0 0 12px;color:var(--p);">Business Model Canvas</h3>
+                <div id="canvas" style="font-size:0.9rem;line-height:1.5;"></div>
+            </div>
+            <div style="display:flex;gap:10px;">
+                <button class="btn" onclick="downloadPDF()">Download PDF</button>
+                <button class="btn btn-small" onclick="newIdea()">New Idea</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>© 2025 Business Assistant</footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        const $ = id => document.getElementById(id);
+
+        const AI = {
+            suppliers: ["EcoPack India (Delhi)", "GreenBag Solutions (Mumbai)", "BioWrap Ltd (Bangalore)"],
+            investors: ["GreenVentures Capital (₹50L-2Cr)", "EcoAngel Fund (Seed)"],
+            canvas: `• <strong>Partners:</strong> EcoPack, GreenBag<br>
+                     • <strong>Activities:</strong> Manufacturing, R&D<br>
+                     • <strong>Value:</strong> 100% composable, cheap<br>
+                     • <strong>Customers:</strong> Restaurants in Delhi<br>
+                     • <strong>Revenue:</strong> Sales, bulk orders`
+        };
+
+        function generate() {
+            const idea = $('idea').value.trim();
+            if (!idea) return alert('Please enter a business idea first.');
+
+            $('suppliers').innerHTML = AI.suppliers.map(s => 
+                `<div style="margin:8px 0;position:relative;">
+                    <span>${s}</span>
+                    <button class="copy" onclick="copy('${s.split(' ')[0]}')">Copy</button>
+                </div>`
+            ).join('');
+
+            $('investors').innerHTML = AI.investors.map(i => 
+                `<div style="margin:8px 0;">${i}</div>`
+            ).join('');
+
+            $('canvas').innerHTML = AI.canvas;
+
+            $('output').classList.add('active');
+            $('output').scrollIntoView({behavior:'smooth'});
+        }
+
+        function copy(text) {
+            navigator.clipboard.writeText(text);
+            alert('Copied: ' + text);
+        }
+
+        function downloadPDF() {
+            const {jsPDF} = window.jspdf;
+            const doc = new jsPDF();
+            doc.setFontSize(16); doc.text('Business Report', 20, 20);
+            doc.setFontSize(12);
+            let y = 35;
+            const data = {
+                'Business Idea': $('idea').value,
+                'Target Market': $('market').value,
+                'Problem': $('problem').value,
+                'Solution': $('solution').value,
+                'Investment': '₹' + $('investment').value,
+                'Launch': $('timeline').value + ' months',
+                'Product': $('productName').value,
+                'Location': $('location').value
+            };
+            for (let [k, v] of Object.entries(data)) {
+                if (v) { doc.text(`${k}: ${v}`, 20, y); y += 10; }
+            }
+            doc.text('Suppliers:', 20, y); y += 8;
+            AI.suppliers.forEach(s => { doc.text(`• ${s}`, 25, y); y += 7; });
+            y += 5;
+            doc.text('Investors:', 20, y); y += 8;
+            AI.investors.forEach(i => { doc.text(`• ${i}`, 25, y); y += 7; });
+            doc.save('Business-Report.pdf');
+        }
+
+        function newIdea() {
+            document.querySelectorAll('input, textarea').forEach(el => el.value = '');
+            $('output').classList.remove('active');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
+</body>
+</html>
