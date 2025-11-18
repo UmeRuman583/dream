@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Assistant</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #111827;
+            overflow-x: hidden;
+            position: relative;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-mode {
+            background: #0b0f19;
+            color: #e0e7ff;
+        }
+
+        /* Wave Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.15) 0%, transparent 50%);
+            opacity: 0.5;
+            z-index: 0;
+            animation: waveFlow 15s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        body.dark-mode::before {
+            background: radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.3) 0%, transparent 50%);
+        }
+
+        @keyframes waveFlow {
+            0%, 100% { transform: translate(0, 0); opacity: 0.5; }
+            50% { transform: translate(20px, -20px); opacity: 0.7; }
+        }
+
+        /* Constellation Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #6366f1;
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: drift 25s linear infinite, pulseParticle 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        body.dark-mode .particle {
+            background: #06b6d4;
+        }
+
+        @keyframes drift {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(30px, -30px); }
+            100% { transform: translate(0, 0); }
+        }
+
+        @keyframes pulseParticle {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.2); }
+        }
+
+        .particle:nth-child(1) { top: 10%; left: 15%; animation-delay: 0s, 0s; }
+        .particle:nth-child(2) { top: 50%; left: 75%; animation-delay: 5s, 1s; }
+        .particle:nth-child(3) { top: 70%; left: 25%; animation-delay: 10s, 2s; }
+        .particle:nth-child(4) { top: 20%; left: 60%; animation-delay: 15s, 3s; }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+            filter: blur(50px);
+            animation: pulseGlow 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        body.dark-mode .hero::before {
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, transparent 70%);
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.8; }
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5em;
+            font-weight: 700;
+            background: linear-gradient(to right, #6366f1, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(99, 102, 241, 0.8);
+            animation: shimmer 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        body.dark-mode .logo {
+            text-shadow: 0 0 10px rgba(99, 102, 241, 0.8);
+        }
+
+        @keyframes shimmer {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+
+        .tagline {
+            font-size: 1.4em;
+            color: #3b82f6;
+            margin-bottom: 30px;
+            font-weight: 500;
+            letter-spacing: 0.8px;
+            line-height: 1.5;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 0 0 8px rgba(99, 102, 241, 0.3);
+        }
+
+        body.dark-mode .tagline {
+            color: #06b6d4;
+            text-shadow: 0 0 8px rgba(99, 102, 241, 0.3);
+        }
+
+        .cta-button {
+            background: #6366f1;
+            color: #ffffff;
+            border: none;
+            padding: 14px 35px;
+            font-size: 1.1em;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            will-change: transform, box-shadow;
+        }
+
+        body.dark-mode .cta-button {
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .cta-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.4), transparent);
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease;
+        }
+
+        .cta-button:active::after {
+            width: 300%;
+            height: 300%;
+        }
+
+        .cta-button:hover {
+            background: linear-gradient(to right, #6366f1, #06b6d4);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(99, 102, 241, 0.5);
+        }
+
+        body.dark-mode .cta-button:hover {
+            background: linear-gradient(to right, #6366f1, #06b6d4);
+        }
+
+        .input-section {
+            display: none;
+            padding: 50px 20px;
+        }
+
+        .input-section.active {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .input-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 14px;
+            padding: 35px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4), inset 0 0 10px rgba(99, 102, 241, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            will-change: backdrop-filter, transform;
+            animation: pulseGlass 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        body.dark-mode .input-card {
+            background: rgba(11, 15, 25, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.5);
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4), inset 0 0 10px rgba(99, 102, 241, 0.3);
+        }
+
+        .input-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            opacity: 0.6;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body.dark-mode .input-card::after {
+            background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.2) 0%, transparent 70%);
+        }
+
+        @keyframes pulseGlass {
+            0%, 100% { box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4), inset 0 0 10px rgba(99, 102, 241, 0.2); }
+            50% { box-shadow: 0 6px 25px rgba(99, 102, 241, 0.5), inset 0 0 12px rgba(99, 102, 241, 0.3); }
+        }
+
+        .input-label {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            color: #6366f1;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(99, 102, 241, 0.8);
+        }
+
+        .dream-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid #6366f1;
+            border-radius: 10px;
+            padding: 15px;
+            color: #111827;
+            font-size: 1em;
+            font-family: 'Inter', sans-serif;
+            resize: vertical;
+            min-height: 100px;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .dream-input {
+            background: rgba(11, 15, 25, 0.8);
+            color: #e0e7ff;
+            border: 1px solid #06b6d4;
+        }
+
+        .dream-input:focus {
+            outline: none;
+            border-color: #06b6d4;
+            box-shadow: 0 0 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .dream-input::placeholder {
+            color: rgba(17, 24, 39, 0.5);
+        }
+
+        body.dark-mode .dream-input::placeholder {
+            color: rgba(224, 231, 255, 0.5);
+        }
+
+        .generate-button {
+            width: 100%;
+            background: linear-gradient(to right, #6366f1, #06b6d4);
+            border: none;
+            padding: 14px;
+            font-size: 1.1em;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            color: #ffffff;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            will-change: transform, box-shadow;
+        }
+
+        .generate-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.4), transparent);
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease;
+        }
+
+        .generate-button:active::after {
+            width: 300%;
+            height: 300%;
+        }
+
+        .generate-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(99, 102, 241, 0.5);
+        }
+
+        .loading-section {
+            display: none;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .loading-section.active {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+
+        .spinner-ring {
+            width: 100%;
+            height: 100%;
+            border: 3px solid rgba(99, 102, 241, 0.2);
+            border-top-color: #6366f1;
+            border-right-color: #06b6d4;
+            border-radius: 50%;
+            animation: spin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        body.dark-mode .spinner-ring {
+            border: 3px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .spinner-ring::after {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            right: 6px;
+            bottom: 6px;
+            border: 2px solid rgba(99, 102, 241, 0.2);
+            border-top-color: #06b6d4;
+            border-radius: 50%;
+            animation: spin 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite reverse;
+        }
+
+        body.dark-mode .spinner-ring::after {
+            border: 2px solid rgba(99, 102, 241, 0.3);
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6em;
+            color: #6366f1;
+            margin-bottom: 10px;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(99, 102, 241, 0.8);
+        }
+
+        .loading-subtext {
+            color: #3b82f6;
+            font-size: 1em;
+            font-weight: 500;
+        }
+
+        body.dark-mode .loading-subtext {
+            color: #06b6d4;
+        }
+
+        .result-section {
+            display: none;
+            padding: 50px 20px;
+        }
+
+        .result-section.active {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .result-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 14px;
+            padding: 25px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4), inset 0 0 10px rgba(99, 102, 241, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            will-change: backdrop-filter, transform;
+            animation: pulseGlass 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        body.dark-mode .result-card {
+            background: rgba(11, 15, 25, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.5);
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4), inset 0 0 10px rgba(99, 102, 241, 0.3);
+        }
+
+        .result-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            opacity: 0.6;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body.dark-mode .result-card::after {
+            background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.2) 0%, transparent 70%);
+        }
+
+        .result-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(99, 102, 241, 0.5), inset 0 0 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .business-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(6, 182, 212, 0.2));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        body.dark-mode .business-image {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(6, 182, 212, 0.3));
+            border: 1px solid rgba(99, 102, 241, 0.5);
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6em;
+            margin-bottom: 10px;
+            color: #6366f1;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(99, 102, 241, 0.8);
+        }
+
+        .reality-text {
+            line-height: 1.6;
+            color: #3b82f6;
+            font-size: 1em;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        body.dark-mode .reality-text {
+            color: #06b6d4;
+        }
+
+        .business-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .detail-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 14px;
+            padding: 20px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4), inset 0 0 10px rgba(99, 102, 241, 0.2);
+            text-align: left;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            will-change: backdrop-filter, transform;
+            animation: pulseGlass 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        body.dark-mode .detail-card {
+            background: rgba(11, 15, 25, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.5);
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4), inset 0 0 10px rgba(99, 102, 241, 0.3);
+        }
+
+        .detail-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            opacity: 0.6;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body.dark-mode .detail-card::after {
+            background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.2) 0%, transparent 70%);
+        }
+
+        .detail-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(99, 102, 241, 0.5), inset 0 0 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .detail-icon {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #3b82f6;
+        }
+
+        body.dark-mode .detail-icon {
+            color: #06b6d4;
+        }
+
+        .detail-label {
+            font-size: 1em;
+            color: #3b82f6;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        body.dark-mode .detail-label {
+            color: #06b6d4;
+        }
+
+        .detail-value {
+            font-size: 1.2em;
+            font-weight: 600;
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(to right, #6366f1, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 10px rgba(99, 102, 241, 0.8);
+        }
+
+        .list-value {
+            list-style-type: disc;
+            padding-left: 20px;
+            color: #3b82f6;
+            font-size: 1em;
+            font-weight: 500;
+        }
+
+        body.dark-mode .list-value {
+            color: #06b6d4;
+        }
+
+        .canvas-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 14px;
+            padding: 35px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4), inset 0 0 10px rgba(99, 102, 241, 0.2);
+            margin-bottom: 30px;
+            position: relative;
+            will-change: backdrop-filter, transform;
+            animation: pulseGlass 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        body.dark-mode .canvas-section {
+            background: rgba(11, 15, 25, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.5);
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4), inset 0 0 10px rgba(99, 102, 241, 0.3);
+        }
+
+        .canvas-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            opacity: 0.6;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body.dark-mode .canvas-section::after {
+            background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.2) 0%, transparent 70%);
+        }
+
+        .canvas-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: #6366f1;
+            font-weight: 600;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(99, 102, 241, 0.8);
+        }
+
+        .canvas-subtitle {
+            text-align: center;
+            color: #3b82f6;
+            font-size: 1em;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        body.dark-mode .canvas-subtitle {
+            color: #06b6d4;
+        }
+
+        .canvas-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            text-align: left;
+        }
+
+        @media (max-width: 768px) {
+            .canvas-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .canvas-block {
+            background: rgba(99, 102, 241, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        body.dark-mode .canvas-block {
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.5);
+        }
+
+        .block-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2em;
+            color: #6366f1;
+            margin-bottom: 8px;
+            text-shadow: 0 0 10px rgba(99, 102, 241, 0.8);
+        }
+
+        .block-content {
+            color: #3b82f6;
+            line-height: 1.6;
+            font-size: 1em;
+            font-weight: 500;
+        }
+
+        body.dark-mode .block-content {
+            color: #06b6d4;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .action-button {
+            background: rgba(99, 102, 241, 0.05);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            padding: 10px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            color: #ffffff;
+            font-size: 0.95em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: 'Inter', sans-serif;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+            position: relative;
+            will-change: transform, box-shadow;
+        }
+
+        body.dark-mode .action-button {
+            border: 1px solid rgba(99, 102, 241, 0.5);
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+        }
+
+        .action-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.4), transparent);
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease;
+        }
+
+        .action-button:active::after {
+            width: 300%;
+            height: 300%;
+        }
+
+        .action-button:hover {
+            background: linear-gradient(to right, #6366f1, #06b6d4);
+            box-shadow: 0 6px 25px rgba(99, 102, 241, 0.5);
+            transform: translateY(-2px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid rgba(99, 102, 241, 0.3);
+            margin-top: 50px;
+        }
+
+        body.dark-mode footer {
+            border-top: 1px solid rgba(99, 102, 241, 0.5);
+        }
+
+        .footer-text {
+            color: #3b82f6;
+            font-size: 1em;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        body.dark-mode .footer-text {
+            color: #06b6d4;
+        }
+
+        .footer-credits {
+            color: #3b82f6;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+
+        body.dark-mode .footer-credits {
+            color: #06b6d4;
+        }
+
+        .theme-mode {
+            margin-top: 8px;
+            color: #6366f1;
+            font-size: 0.95em;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(99, 102, 241, 0.8);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2em;
+            z-index: 10;
+            color: #6366f1;
+            transition: transform 0.3s ease;
+        }
+
+        body.dark-mode .theme-toggle {
+            color: #06b6d4;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .business-details {
+                grid-template-columns: 1fr;
+            }
+
+            .logo {
+                font-size: 2.5em;
+            }
+
+            .tagline {
+                font-size: 1.2em;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body class="dark-mode">
+    <button class="theme-toggle" onclick="toggleTheme()">☀️</button>
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <div class="container">
+        <section class="hero" id="hero">
+            <div class="logo">Business Assistant</div>
+            <div class="tagline">Turn your business idea into a thriving reality with AI-powered predictions, insights, and actionable plans</div>
+            <button class="cta-button" onclick="showInputSection()">Describe Your Business Idea</button>
+        </section>
+
+        <section class="input-section" id="inputSection">
+            <div class="input-card">
+                <div class="input-label">💼 Share your business idea with us</div>
+                <textarea class="dream-input" id="businessInput" placeholder="I want to start a coffee shop in a busy urban area offering specialty brews and cozy ambiance..."></textarea>
+                <button class="generate-button" onclick="generateBusiness()">Analyze Idea with AI</button>
+            </div>
+        </section>
+
+        <section class="loading-section" id="loadingSection">
+            <div class="loading-spinner">
+                <div class="spinner-ring"></div>
+            </div>
+            <div class="loading-text">AI is analyzing your business idea...</div>
+            <div class="loading-subtext">Generating predictions, insights, and business plan</div>
+        </section>
+
+        <section class="result-section" id="resultSection">
+            <div class="result-grid">
+                <div class="result-card">
+                    <div class="business-image" id="businessVisualization">☕</div>
+                    <div class="card-title">Your Business Visualized</div>
+                </div>
+                <div class="result-card">
+                    <div class="card-title">AI Feasibility Check</div>
+                    <div class="reality-text" id="feasibilityText">
+                        Your business idea shows strong potential! With proper execution, it can succeed in the current market.
+                    </div>
+                </div>
+            </div>
+
+            <div class="business-details" id="businessDetails"></div>
+
+            <div class="canvas-section">
+                <div class="canvas-title">📊 Business Model Canvas</div>
+                <div class="canvas-subtitle">AI-Auto-Filled Overview of Your Business Model</div>
+                <div class="canvas-grid" id="canvasGrid"></div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="action-button" onclick="shareBusiness()">📤 Share Business Plan</button>
+                <button class="action-button" onclick="downloadPDF()">💾 Download PDF</button>
+                <button class="action-button" onclick="createNew()">✨ New Idea</button>
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-text">Powered by Advanced AI Business Analysis Technology</div>
+            <div class="footer-credits">© 2025 Business Assistant - Where Ideas Become Businesses</div>
+            <div class="theme-mode" id="themeMode">Dark Mode</div>
+        </footer>
+    </div>
+
+    <script>
+        const businessTemplates = {
+            coffee: {
+                emoji: '☕',
+                feasibility: 'Your coffee shop idea is highly feasible in urban areas! The growing demand for specialty coffee and social spaces makes this a promising venture with moderate competition.',
+                targetMarket: 'Young professionals (25-40), students, and remote workers seeking quality coffee and a comfortable workspace.',
+                problemSolved: 'Lack of affordable, cozy spots for quick breaks, work sessions, or social meetups with premium coffee options.',
+                solution: 'A modern coffee shop offering artisanal brews, fast Wi-Fi, comfortable seating, and light snacks in a vibrant atmosphere.',
+                investmentNeeded: '$50,000 - $150,000 (for rent, equipment, inventory, and initial marketing).',
+                timeToLaunch: '3-6 Months',
+                bestSuppliers: ['Starbucks Suppliers Network', 'Local Coffee Bean Farms (e.g., Ethiopian or Colombian importers)', 'Sysco for food items', 'Restaurant Depot for equipment'],
+                potentialInvestors: ['Angel investors in food & beverage sector', 'Local business accelerators like Y Combinator Food Track', 'Crowdfunding platforms like Kickstarter', 'Small Business Administration (SBA) loans'],
+                productName: 'Brew Haven Coffee',
+                location: 'Busy urban district like downtown Lahore or Karachi, near offices and universities.',
+                canvas: {
+                    keyPartners: 'Coffee bean suppliers, local bakers, equipment vendors.',
+                    keyActivities: 'Brewing coffee, customer service, inventory management.',
+                    keyResources: 'Baristas, espresso machines, prime location.',
+                    valuePropositions: 'Premium coffee, cozy ambiance, fast service.',
+                    customerRelationships: 'Loyalty programs, social media engagement.',
+                    channels: 'In-store, online ordering app, delivery partnerships.',
+                    customerSegments: 'Urban professionals, students.',
+                    costStructure: 'Rent, ingredients, staff salaries, marketing.',
+                    revenueStreams: 'Coffee sales, snacks, merchandise, events.'
+                }
+            },
+            default: {
+                emoji: '🏢',
+                feasibility: 'Your business idea has solid potential! AI predicts success with strategic planning and market adaptation.',
+                targetMarket: 'General consumers in urban areas looking for innovative solutions.',
+                problemSolved: 'Common market gaps in efficiency or accessibility.',
+                solution: 'A tailored product/service addressing the identified needs.',
+                investmentNeeded: '$20,000 - $100,000 depending on scale.',
+                timeToLaunch: '4-8 Months',
+                bestSuppliers: ['Amazon Business', 'Alibaba for wholesale', 'Local manufacturers', 'Industry-specific vendors'],
+                potentialInvestors: ['Venture capitalists', 'Angel networks', 'Bank loans', 'Crowdfunding sites'],
+                productName: 'Innovate Biz Solutions',
+                location: 'Urban commercial area or online-first.',
+                canvas: {
+                    keyPartners: 'Suppliers, distributors, tech providers.',
+                    keyActivities: 'Product development, marketing, sales.',
+                    keyResources: 'Team, technology, funding.',
+                    valuePropositions: 'Unique value, quality service.',
+                    customerRelationships: 'Support, community building.',
+                    channels: 'Website, social media, retail.',
+                    customerSegments: 'Target demographics based on idea.',
+                    costStructure: 'Operations, marketing, R&D.',
+                    revenueStreams: 'Sales, subscriptions, ads.'
+                }
+            }
+        };
+
+        function showInputSection() {
+            document.getElementById('hero').style.display = 'none';
+            document.getElementById('inputSection').classList.add('active');
+        }
+
+        function analyzeBusiness(businessText) {
+            const text = businessText.toLowerCase();
+            if (text.includes('coffee') || text.includes('cafe') || text.includes('shop') && text.includes('drink')) {
+                return 'coffee';
+            } else {
+                return 'default';
+            }
+        }
+
+        function generateBusiness() {
+            const input = document.getElementById('businessInput').value;
+            if (!input.trim()) {
+                alert('Please describe your business idea first!');
+                return;
+            }
+
+            document.getElementById('inputSection').classList.remove('active');
+            document.getElementById('loadingSection').classList.add('active');
+
+            setTimeout(() => {
+                const businessType = analyzeBusiness(input);
+                const template = businessTemplates[businessType];
+
+                document.getElementById('businessVisualization').textContent = template.emoji;
+                document.getElementById('feasibilityText').textContent = template.feasibility;
+
+                const detailsContainer = document.getElementById('businessDetails');
+                detailsContainer.innerHTML = '';
+
+                const details = [
+                    { icon: '🎯', label: 'Target Market', value: template.targetMarket },
+                    { icon: '❓', label: 'Problem You Solve', value: template.problemSolved },
+                    { icon: '💡', label: 'Your Solution', value: template.solution },
+                    { icon: '💰', label: 'Investment Needed', value: template.investmentNeeded },
+                    { icon: '⏱️', label: 'Time to Launch', value: template.timeToLaunch },
+                    { icon: '🛒', label: 'Best Suppliers (AI-suggested)', value: template.bestSuppliers },
+                    { icon: '🤝', label: 'Potential Investors (AI-suggested)', value: template.potentialInvestors },
+                    { icon: '🏷️', label: 'Product / Service Name', value: template.productName },
+                    { icon: '📍', label: 'Place / Location', value: template.location }
+                ];
+
+                details.forEach(detail => {
+                    const card = document.createElement('div');
+                    card.className = 'detail-card';
+                    let valueHtml = Array.isArray(detail.value) 
+                        ? `<ul class="list-value">${detail.value.map(item => `<li>${item}</li>`).join('')}</ul>` 
+                        : `<div class="detail-value">${detail.value}</div>`;
+                    card.innerHTML = `
+                        <div class="detail-icon">${detail.icon}</div>
+                        <div class="detail-label">${detail.label}</div>
+                        ${valueHtml}
+                    `;
+                    detailsContainer.appendChild(card);
+                });
+
+                const canvasContainer = document.getElementById('canvasGrid');
+                canvasContainer.innerHTML = '';
+
+                Object.entries(template.canvas).forEach(([key, value]) => {
+                    const block = document.createElement('div');
+                    block.className = 'canvas-block';
+                    block.innerHTML = `
+                        <div class="block-title">${key.split(/(?=[A-Z])/).join(' ')}</div>
+                        <div class="block-content">${value}</div>
+                    `;
+                    canvasContainer.appendChild(block);
+                });
+
+                document.getElementById('loadingSection').classList.remove('active');
+                document.getElementById('resultSection').classList.add('active');
+            }, 2000);
+        }
+
+        function shareBusiness() {
+            const businessText = document.getElementById('businessInput').value;
+            if (navigator.share) {
+                navigator.share({
+                    title: 'My Business Plan - Business Assistant',
+                    text: 'Turning my business idea into reality! ' + businessText.substring(0, 100) + '...',
+                    url: window.location.href
+                }).catch(() => {
+                    alert('📤 Share feature: Copy your personalized business plan link to share with others!');
+                });
+            } else {
+                alert('📤 Share feature: Copy your personalized business plan link to share with others!');
+            }
+        }
+
+        function downloadPDF() {
+            alert('💾 Downloading your complete business plan as PDF... In production, this will generate a detailed PDF with all predictions, canvas, and insights!');
+        }
+
+        function createNew() {
+            document.getElementById('resultSection').classList.remove('active');
+            document.getElementById('inputSection').classList.add('active');
+            document.getElementById('businessInput').value = '';
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const toggleButton = document.querySelector('.theme-toggle');
+            const themeModeText = document.getElementById('themeMode');
+            toggleButton.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+            themeModeText.textContent = document.body.classList.contains('dark-mode') ? 'Dark Mode' : 'Light Mode';
+        }
+    </script>
+</body>
+</html>
